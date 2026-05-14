@@ -1,3 +1,5 @@
+'use client'
+
 export default function Footer() {
   return (
     <footer className="border-t border-white/10 px-5 py-10 md:px-8">
@@ -8,10 +10,9 @@ export default function Footer() {
         </p>
 
         <button
+          type="button"
           onClick={() => {
-            if (typeof window !== 'undefined') {
-              window.scrollTo({ top: 0, behavior: 'smooth' })
-            }
+            window.scrollTo({ top: 0, behavior: 'smooth' })
           }}
           className="rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 transition hover:border-primary/60 hover:text-soft-white"
         >

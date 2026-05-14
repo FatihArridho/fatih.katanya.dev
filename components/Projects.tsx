@@ -110,9 +110,7 @@ export default function Projects() {
             <h3 className="text-2xl font-bold text-soft-white">
               Failed to load projects
             </h3>
-            <p className="mt-3 font-mono text-sm text-soft-muted">
-              {error}
-            </p>
+            <p className="mt-3 font-mono text-sm text-soft-muted">{error}</p>
           </div>
         ) : repos.length === 0 ? (
           <div className="glass rounded-[2rem] p-8 text-center">
@@ -146,5 +144,3 @@ export default function Projects() {
     </section>
   )
 }
-
-Projects.Skeleton = ProjectsSkeleton
