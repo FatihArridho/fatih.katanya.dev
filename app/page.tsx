@@ -1,4 +1,3 @@
-import { Suspense } from 'react'
 import Navbar from '@/components/Navbar'
 import Hero from '@/components/Hero'
 import About from '@/components/About'
@@ -14,9 +13,7 @@ export default function HomePage() {
       <main>
         <Hero />
         <About />
-        <Suspense fallback={<Projects.Skeleton />}>
-          <Projects />
-        </Suspense>
+        <Projects />
         <Contact />
       </main>
       <Footer />
