@@ -1,29 +1,33 @@
 import type { Metadata } from 'next'
-import { Inter, JetBrains_Mono } from 'next/font/google'
+import { JetBrains_Mono } from 'next/font/google'
 import './globals.css'
-
-const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-inter'
-})
 
 const jetBrainsMono = JetBrains_Mono({
   subsets: ['latin'],
-  variable: '--font-jetbrains-mono'
+  variable: '--font-jetbrains',
+  display: 'swap'
 })
 
 export const metadata: Metadata = {
-  title: 'Fatih Arridho | Developer',
+  title: 'Fatih Arridho | Creative Developer',
   description:
-    'Personal landing page Fatih Arridho, full-stack developer, open source enthusiast, and code artisan.',
+    'Portfolio of Fatih Arridho, a creative developer crafting digital experiences with clean code and bold design.',
   icons: {
     icon: '/favicon.ico'
   },
   openGraph: {
-    title: 'Fatih Arridho | Developer',
+    title: 'Fatih Arridho | Creative Developer',
     description:
-      'Full-Stack Developer | Open Source Enthusiast | Code Artisan',
-    type: 'website'
+      'Where code meets art. Modern portfolio of Fatih Arridho, creative developer and open source enthusiast.',
+    type: 'website',
+    url: 'https://fatih.katanya.dev',
+    siteName: 'Fatih Arridho'
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Fatih Arridho | Creative Developer',
+    description:
+      'Where code meets art. Modern portfolio of Fatih Arridho.'
   }
 }
 
@@ -33,9 +37,9 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className="dark">
-      <body className={`${inter.variable} ${jetBrainsMono.variable}`}>
-        {children}
+    <html lang="en" className={jetBrainsMono.variable}>
+      <body>
+        <div className="flex min-h-screen flex-col">{children}</div>
       </body>
     </html>
   )

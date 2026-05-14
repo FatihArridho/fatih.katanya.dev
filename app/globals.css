@@ -1,37 +1,183 @@
+@import url('https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Global styles for the Fatih Arridho personal site. We apply the neon
-   terminal aesthetic by default, hide the native cursor in favour of a
-   custom block cursor, and ensure smooth scrolling throughout the page. */
-
-html,
-body {
-  @apply font-sans bg-background text-white scroll-smooth;
+:root {
+  --bg-start: #0f0f1a;
+  --bg-end: #1a1a2e;
+  --primary: #6c63ff;
+  --accent: #00d4aa;
+  --soft-white: #e4e4eb;
+  --muted: #a0a0b8;
+  --surface: rgba(255, 255, 255, 0.03);
+  --border: rgba(255, 255, 255, 0.09);
 }
 
-/* Custom block cursor using a data URI. This block mimics the classic
-   terminal caret. The `cursor` declaration falls back to the default if
-   unsupported. */
-body {
-  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='16'%3E%3Crect width='8' height='16' fill='%2300ff41'/%3E%3C/svg%3E") 4 14, auto;
+* {
+  box-sizing: border-box;
 }
 
-/* Text selection styling matches the neon accent. */
+html {
+  scroll-behavior: smooth;
+  background: var(--bg-start);
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  color: var(--soft-white);
+  background:
+    radial-gradient(circle at 20% 15%, rgba(108, 99, 255, 0.22), transparent 28rem),
+    radial-gradient(circle at 80% 10%, rgba(0, 212, 170, 0.14), transparent 24rem),
+    radial-gradient(circle at 50% 90%, rgba(108, 99, 255, 0.12), transparent 28rem),
+    linear-gradient(135deg, var(--bg-start), var(--bg-end));
+  font-family: Satoshi, Inter, system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.9'/%3E%3C/svg%3E");
+}
+
 ::selection {
-  @apply bg-neon text-background;
+  background: var(--primary);
+  color: white;
 }
 
-/* Terminal-like horizontal rules between sections. We use this utility
-   class in the JSX to keep markup clean. */
-.terminal-divider {
-  @apply text-neon font-mono text-sm opacity-70 my-8 flex items-center;
+::-webkit-scrollbar {
+  width: 8px;
 }
 
-/* Boot screen wrapper hides the rest of the page until the booting
-   animation completes. */
-.boot-screen {
-  @apply fixed inset-0 flex items-center justify-center bg-background z-50;
-  font-family: var(--font-mono);
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--primary), var(--accent));
+  border-radius: 999px;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.9s ease,
+    transform 0.9s ease;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(22px);
+}
+
+.gradient-text {
+  background: linear-gradient(90deg, #b8b3ff, #6c63ff, #00d4aa);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.gradient-line {
+  width: 88px;
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+}
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.04) 0%,
+    rgba(255, 255, 255, 0.11) 50%,
+    rgba(255, 255, 255, 0.04) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.6s linear infinite;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-16px);
+  }
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 24px rgba(108, 99, 255, 0.24);
+  }
+
+  50% {
+    box-shadow: 0 0 48px rgba(0, 212, 170, 0.28);
+  }
+}
+
+@keyframes shimmer {
+  from {
+    background-position: -200% 0;
+  }
+
+  to {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes bounce-soft {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.65;
+  }
+
+  50% {
+    transform: translateY(8px);
+    opacity: 1;
+  }
+}
+
+.scroll-indicator {
+  animation: bounce-soft 1.8s ease-in-out infinite;
 }
