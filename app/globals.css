@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Global style for the Fatih Arridho personal site. We apply the neon
+/* Global styles for the Fatih Arridho personal site. We apply the neon
    terminal aesthetic by default, hide the native cursor in favour of a
    custom block cursor, and ensure smooth scrolling throughout the page. */
 
