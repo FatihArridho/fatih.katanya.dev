@@ -1,37 +1,40 @@
-import './globals.css'
 import type { Metadata } from 'next'
-import { JetBrains_Mono, Inter } from 'next/font/google'
-
-// Configure the JetBrains Mono and Inter fonts. Using the `variable`
-// option exposes a CSS custom property we can reference in Tailwind.
-const jetbrains = JetBrains_Mono({
-  subsets: ['latin'],
-  variable: '--font-jetbrains',
-})
+import { Inter, JetBrains_Mono } from 'next/font/google'
+import './globals.css'
 
 const inter = Inter({
   subsets: ['latin'],
-  variable: '--font-inter',
+  variable: '--font-inter'
+})
+
+const jetBrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  variable: '--font-jetbrains-mono'
 })
 
 export const metadata: Metadata = {
   title: 'Fatih Arridho | Developer',
-  description: 'Personal landing page of Fatih Arridho: full‑stack developer, open source enthusiast and code artisan.',
+  description:
+    'Personal landing page Fatih Arridho, full-stack developer, open source enthusiast, and code artisan.',
   icons: {
-    icon: '/favicon.ico',
+    icon: '/favicon.ico'
   },
   openGraph: {
-    title: 'Fatih Arridho',
-    description: 'Full‑Stack Developer, Open Source Enthusiast, Code Artisan',
-    url: 'https://fatiharridho.vercel.app',
-    type: 'website',
-  },
+    title: 'Fatih Arridho | Developer',
+    description:
+      'Full-Stack Developer | Open Source Enthusiast | Code Artisan',
+    type: 'website'
+  }
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children
+}: {
+  children: React.ReactNode
+}) {
   return (
-    <html lang="en" className={`${jetbrains.variable} ${inter.variable}`}> 
-      <body className="bg-background text-white">
+    <html lang="en" className="dark">
+      <body className={`${inter.variable} ${jetBrainsMono.variable}`}>
         {children}
       </body>
     </html>
