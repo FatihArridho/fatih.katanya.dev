@@ -1,30 +1,57 @@
-import React from 'react'
+'use client'
+
+import { useEffect, useRef, useState } from 'react'
 
 interface TerminalWindowProps {
   title?: string
   children: React.ReactNode
+  className?: string
 }
 
-/**
- * Renders a faux terminal window with the familiar traffic light buttons on
- * macOS. Accepts arbitrary children which can be used to display code,
- * markdown or JSON. The window respects the site's neon palette.
- */
-export default function TerminalWindow({ title, children }: TerminalWindowProps) {
+export default function TerminalWindow({
+  title = 'window.dev',
+  children,
+  className = ''
+}: TerminalWindowProps) {
+  const ref = useRef<HTMLDivElement | null>(null)
+  const [visible, setVisible] = useState(false)
+
+  useEffect(() => {
+    const element = ref.current
+    if (!element) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true)
+          observer.disconnect()
+        }
+      },
+      { threshold: 0.2 }
+    )
+
+    observer.observe(element)
+
+    return () => observer.disconnect()
+  }, [])
+
   return (
-    <div className="bg-black border border-gray-700 rounded-lg shadow-lg overflow-hidden">
-      {/* Header bar */}
-      <div className="flex items-center px-3 py-2 bg-gray-900 border-b border-gray-700">
-        <div className="flex space-x-2">
-          <span className="w-3 h-3 rounded-full bg-red-500"></span>
-          <span className="w-3 h-3 rounded-full bg-yellow-400"></span>
-          <span className="w-3 h-3 rounded-full bg-green-500"></span>
+    <div
+      ref={ref}
+      className={`glass overflow-hidden rounded-3xl transition duration-700 ${
+        visible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+      } ${className}`}
+    >
+      <div className="flex items-center gap-3 border-b border-white/10 bg-white/[0.025] px-5 py-4">
+        <div className="flex gap-2">
+          <span className="h-3 w-3 rounded-full bg-[#ff5f56] shadow-[0_0_12px_rgba(255,95,86,0.5)]" />
+          <span className="h-3 w-3 rounded-full bg-[#ffbd2e] shadow-[0_0_12px_rgba(255,189,46,0.5)]" />
+          <span className="h-3 w-3 rounded-full bg-[#27c93f] shadow-[0_0_12px_rgba(39,201,63,0.5)]" />
         </div>
-        {title && <span className="ml-4 text-sm text-gray-400 font-mono">{title}</span>}
+        <span className="font-mono text-xs text-soft-muted">{title}</span>
       </div>
-      <div className="p-4 font-mono text-sm text-gray-300 whitespace-pre-wrap">
-        {children}
-      </div>
+
+      <div className="p-6">{children}</div>
     </div>
   )
 }

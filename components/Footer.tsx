@@ -1,19 +1,23 @@
-/**
- * Footer component containing attribution and a link to scroll back to the
- * top of the page. It uses simple styling consistent with the neon
- * theme.
- */
 export default function Footer() {
   return (
-    <footer className="py-8 text-center text-sm text-gray-500 font-mono">
-      <p>
-        © 2025 Fatih Arridho — Crafted with ⌨️ and ☕ — Deployed on ▲ Vercel
-      </p>
-      <p className="mt-2">
-        <a href="#home" className="text-neon hover:underline">
-          [Back to Top]
-        </a>
-      </p>
+    <footer className="border-t border-white/10 px-5 py-10 md:px-8">
+      <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 text-center text-sm text-soft-muted md:flex-row md:text-left">
+        <p>
+          © 2025 Fatih Arridho — Built with Next.js & Tailwind CSS — Deployed on
+          ▲ Vercel
+        </p>
+
+        <button
+          onClick={() => {
+            if (typeof window !== 'undefined') {
+              window.scrollTo({ top: 0, behavior: 'smooth' })
+            }
+          }}
+          className="rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 transition hover:border-primary/60 hover:text-soft-white"
+        >
+          Back to top
+        </button>
+      </div>
     </footer>
   )
 }
